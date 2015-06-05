@@ -174,6 +174,9 @@ echoerr "Going to iterate items"
 for item in ${paths[*]}
 do
 	fullname="${item/\~/$HOME}"
+	if [ -h $fullname ]; then
+		continue;
+	fi
 	if [ -f $fullname ] || [ -d $fullname ]; then
 		while true; do
 			read -p "I found ${item}, do you want to DotBot it? (Y/n) " answer
