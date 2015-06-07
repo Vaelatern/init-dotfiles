@@ -1,14 +1,16 @@
 Easy Dotfiles
 =============
 
-The `easy_install` script was created as a solution to [Dotbot's 
-issue #22][origin-issue]. The problem: There are plenty of ways to
-manage an existing dotfiles repository. However, there isn't an existing way to
-easily setup dotfiles to start with. Even if someone uses another dotfile
-manager, they still need to move files themselves, go through the dotfile
-manager install and configuration process, and setup a repository.
+The `easy_setup` script was created as a solution to [Dotbot's 
+issue #22][origin-issue]. The problem: Everybody and their grandma has a way to
+manage an existing dotfiles repository. However, there isn't an existing 
+mechanism to easily setup a dotfiles repository to start with. Even if someone
+uses a dotfile manager, they still need to move files themselves, go through 
+the manager install and configuration process, and setup a repository so the 
+version control system can function.
 
-This script aims to do that.
+This script aims to do everything for you. All you need to do is run it, and 
+give it permission to do everything it does.
 
 Currently, the script is designed for use with the [DotBot dotfiles
 manager][dotbot-repo] and git.
@@ -42,10 +44,10 @@ hey, it's a feature.
 Contributing
 ------------
 
-If you want to help out, you can either submit a patch, or you can open an 
-issue and we will see what we can do. Please do request features; we will 
-gladly add them as people request them. This is meant to help facilitate 
-creation of your own dotfiles repository.
+If you want to help out, there are two ways to do that. Either you can open an 
+issue, or you can fork and pull request. Either way, your feature will likely 
+be added. If you wanted a file added to your dotfiles that isn't looked for in 
+the script, open an issue.
 
 [origin-issue]: https://github.com/anishathalye/dotbot/issues/22
 [dotbot-repo]: https://github.com/anishathalye/dotbot
