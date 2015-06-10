@@ -10,8 +10,7 @@ setup a repository under version control.
 We aim to do all of this for you. All you need to do is run it, and
 give it permission to do everything it does.
 
-Currently, the script is designed for use with the [DotBot dotfiles
-manager][dotbot-repo] and git.
+Currently, the script is designed for use with [Dotbot][dotbot-repo] dotfile manager and git.
 
 Get Running in 5 Minutes
 ------------------------
