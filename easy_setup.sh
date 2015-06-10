@@ -90,7 +90,32 @@ while [ $# -ne 0 ]; do
 	shift
 done
 
-paths=('~/.profile' '~/.bash_profile' '~/.bashrc' '~/.bash_logout' '~/.gitconfig' '~/.ssh/config' '~/.tmux.conf' '~/.vimrc' '~/.vim/vimrc' '~/.zprofile' '~/.zshenv' '~/.zshrc' '~/bin' '~/.Xmodmap' '~/.Xresources' '~/.Xdefaults' '~/.vimperatorrc' '~/.xinitrc' '~/.i3' '~/.i3status.conf' '~/.config/awesome' '~/.config/pianobar' '~/.config/vimprobable' '~/.config/redshift' '~/.config/openbox' '~/.config/tint2')
+paths=('~/.profile'
+	'~/.bash_profile'
+	'~/.bashrc'
+	'~/.bash_logout'
+	'~/.gitconfig'
+	'~/.ssh/config'
+	'~/.tmux.conf'
+	'~/.vimrc'
+	'~/.vim/vimrc'
+	'~/.zprofile'
+	'~/.zshenv'
+	'~/.zshrc'
+	'~/bin'
+	'~/.Xmodmap'
+	'~/.Xresources'
+	'~/.Xdefaults'
+	'~/.vimperatorrc'
+	'~/.xinitrc'
+	'~/.i3'
+	'~/.i3status.conf'
+	'~/.config/awesome'
+	'~/.config/pianobar'
+	'~/.config/vimprobable'
+	'~/.config/redshift'
+	'~/.config/openbox'
+	'~/.config/tint2')
 
 setupshell=''
 dotclean=''
