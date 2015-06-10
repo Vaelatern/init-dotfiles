@@ -32,7 +32,7 @@ appendshell() {
 			add="mv $2 $3;"
 			;;
 		echoconfig)
-			add='echo -e "'$2'" > '$3';'
+			add='echo -e "'$2'" >> '$3';'
 			;;
 		runinstaller)
 			add='./install;'
