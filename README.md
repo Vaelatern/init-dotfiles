@@ -17,7 +17,7 @@ Get Running in 5 Minutes
 
 ```bash
   wget https://raw.githubusercontent.com/Aviator45003/easy-dotfiles/master/easy_setup.sh
-  ./eash_setup.sh
+  ./easy_setup.sh
 ```
 
 Usage
