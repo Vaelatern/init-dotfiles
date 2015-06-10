@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 echoerr() { echo "$@" >&2; }
+
+$(which git >& /dev/null)
+
+if [ $? -eq 1 ]; then
+	echoerr "Git not found! Confirm it is indeed installed and reachable."
+	exit;
+fi
+
 appendshell() {
 	case "$1" in
 		start)
