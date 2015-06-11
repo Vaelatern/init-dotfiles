@@ -41,10 +41,10 @@ Every command line option can have `no-` prepended to turn off the option.
 For example:
 
 ```bash
-  ./easy_setup.sh test no-preview
+  ./easy_setup.sh verbose-config no-preview
 ```
 
-Will enable the `test` option and disable the `preview` option.
+Will enable the `verbose-config` option and disable the `preview` option.
 
 Contributing
 ------------
