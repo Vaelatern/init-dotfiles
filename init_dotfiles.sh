@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 echoerr() { echo "$@" >&2; }
+printferr() { printf "$@" >&2; }
 
 $(which git >& /dev/null)
 
@@ -431,7 +432,7 @@ if (( $testmode )); then
 fi
 
 if (( $preview )); then
-	printf "\n${setupshell//; /;\\n}\n\n" # place newline after each command for printing
+	printferr "\n${setupshell//; /;\\n}\n\n" # place newline after each command for printing
 	warningmessage='If you do not see a problem with the above commands, press enter. '
 else
 	warningmessage=''
