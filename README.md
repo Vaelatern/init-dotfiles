@@ -16,7 +16,7 @@ Get Running in 5 Minutes
 ------------------------
 
 ```bash
-  wget https://raw.githubusercontent.com/Aviator45003/easy-dotfiles/master/easy_setup.sh
+  curl -fsSLo eash_setup.sh https://raw.githubusercontent.com/Aviator45003/easy-dotfiles/master/easy_setup.sh
   ./easy_setup.sh
 ```
 
