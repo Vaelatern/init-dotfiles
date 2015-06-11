@@ -37,6 +37,22 @@ appendshell() {
 		runinstaller)
 			add='./install;'
 			;;
+		gitsetname)
+			if (( $3 )); then
+				global=' --global '
+			else
+				global=' '
+			fi
+			add='git config'$global'user.name "'$2'"'
+			;;
+		gitsetemail)
+			if (( $3 )); then
+				global=' --global '
+			else
+				global=' '
+			fi
+			add='git config'$global'user.email "'$2'"'
+			;;
 		gitinitialcommit)
 			add='git add -A; git commit -m "Initial commit";'
 			;;
@@ -282,6 +298,84 @@ export installconfyaml="$dotclean$newline$newline$dotlink$newline$newline$dotshe
 
 appendshell echoconfig "$installconfyaml" 'install.conf.yaml'
 
+getgitinfo=0
+gitinfoglobal=0
+if (( $installerrun )); then
+	$(git config user.name >& /dev/null && git config user.email >& /dev/null)
+
+	if [ $? -ne 0 ]; then
+		echoerr "Please note you do not have a name or email set for git."
+		echoerr "I shall not be able to commit unless you set the missing variables."
+		while [ 1 ]; do
+			read -p "Do you want to set them? (Y/n) " answer
+			if [ -z $answer ]; then
+				answer='y'
+			fi
+			case "$answer" in
+				Y*|y*)
+					getgitinfo=1
+					break
+					;;
+				N*|n*)
+					echoerr "Okay, I shall not."
+					getgitinfo=0;
+					installerrun=0;
+					break
+					;;
+				*)
+					echoerr "Answer not understood: ${answer}"
+					;;
+			esac
+		done
+		while [ 1 ]; do
+			read -p "Do you want these settings to be global? (Y/n) " answer
+			if [ -z $answer ]; then
+				answer='y'
+			fi
+			case "$answer" in
+				Y*|y*)
+					echoerr "Adding --global to the set commands."
+					gitinfoglobal=1
+					break
+					;;
+				N*|n*)
+					echoerr "Okay, I shall make them local."
+					gitinfoglobal=0;
+					break
+					;;
+				*)
+					echoerr "Answer not understood: ${answer}"
+					;;
+			esac
+		done
+	fi
+fi
+if (( $getgitinfo )); then
+	$(git config user.name >& /dev/null)
+	if [ $? -ne 0 ]; then
+		gitname="Donald Knuth"
+	else
+		gitname='$(git config user.name)'
+	fi
+	$(git config user.email >& /dev/null)
+	if [ $? -ne 0 ]; then
+		gitemail="Don.Knuth@example.com"
+	else
+		gitemail='$(git config user.email)'
+	fi
+	read -p "What do you want for your git name? [${gitname}]" answer
+	if [ -z $answer ]; then
+		answer=$gitname
+	fi
+	gitname=$answer
+	read -p "What do you want for your git email? [${gitemail}]" answer
+	if [ -z $answer ]; then
+		answer=$gitemail
+	fi
+	gitemail=$answer
+	appendshell gitsetname "$gitname" $gitinfoglobal
+	appendshell gitsetemail "$gitemail" $gitinfoglobal
+fi
 
 while (( $installerrun )); do
 	read -p "Shall I run the installer? (Necessary to git commit) (Y/n) " answer
