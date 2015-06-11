@@ -26,7 +26,7 @@ Usage
 - `test` - Test mode. Nothing will actually be done. Best if you are wary
   about the whole thing. Default: No.
 
-- `verbose-config` - The DotBot configuration will have every option
+- `verbose-config` - The Dotbot configuration will have every option
   explicitly set. Default: No.
 
 - `dump-config` - The configuration will be sent to `stdout`, perfect for
