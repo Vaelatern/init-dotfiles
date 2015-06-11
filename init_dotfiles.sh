@@ -431,7 +431,7 @@ if (( $testmode )); then
 fi
 
 if (( $preview )); then
-	echoerr $setupshell
+	printf "\n${setupshell//; /;\\n}\n\n" # place newline after each command for printing
 	warningmessage='If you do not see a problem with the above commands, press enter. '
 else
 	warningmessage=''
