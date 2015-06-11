@@ -16,8 +16,8 @@ Get Running in 5 Minutes
 ------------------------
 
 ```bash
-  curl -fsSLo eash_setup.sh https://raw.githubusercontent.com/Aviator45003/easy-dotfiles/master/easy_setup.sh
-  ./easy_setup.sh
+  curl -fsSLo eash_setup.sh https://raw.githubusercontent.com/Aviator45003/init-dotfiles/master/init_dotfiles.sh
+  ./init_dotfiles.sh
 ```
 
 Usage
@@ -41,7 +41,7 @@ Every command line option can have `no-` prepended to turn off the option.
 For example:
 
 ```bash
-  ./easy_setup.sh verbose-config no-preview
+  ./init_dotfiles.sh verbose-config no-preview
 ```
 
 Will enable the `verbose-config` option and disable the `preview` option.
