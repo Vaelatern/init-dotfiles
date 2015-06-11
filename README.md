@@ -1,4 +1,4 @@
-Easy Dotfiles
+Init Dotfiles
 =============
 
 **The problem:** Everybody and their grandma has a way to manage an existing
