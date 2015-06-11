@@ -11,7 +11,7 @@ fi
 appendshell() {
 	case "$1" in
 		start)
-			add='echo "Setting up DotBot. Please do not ^C." >&2;'
+			add='echo "Setting up Dotbot. Please do not ^C." >&2;'
 			;;
 		mkprefix)
 			add="mkdir -p $2; cd $2;"
@@ -123,7 +123,7 @@ dotlink=''
 dotshell=''
 installerrun=1;
 
-echoerr "Welcome to the configuration generator for DotBot"
+echoerr "Welcome to the configuration generator for Dotbot"
 echoerr "Please be aware that if you have a complicated setup, you may need more customization than this script offers."
 echoerr;
 echoerr "At any time, press ^C to quit. No changes will be made until you confirm."
@@ -156,7 +156,7 @@ appendshell mkprefix $prefix
 appendshell gitinit
 
 while true; do
-	read -p "Shall we add DotBot as a submodule (a good idea)? (Y/n) " answer
+	read -p "Shall we add Dotbot as a submodule (a good idea)? (Y/n) " answer
 	if [ -z $answer ]; then
 		answer='y'
 	fi
@@ -179,18 +179,18 @@ while true; do
 done
 
 while true; do
-	read -p "Do you want DotBot to clean ~/ of broken links added by DotBot? (recommended) (Y/n) " answer
+	read -p "Do you want Dotbot to clean ~/ of broken links added by Dotbot? (recommended) (Y/n) " answer
 	if [ -z $answer ]; then
 		answer='y'
 	fi
 	case "$answer" in
 		Y*|y*)
-			echoerr "I will ask DotBot to clean."
+			echoerr "I will ask Dotbot to clean."
 			dotclean="- clean: ['~']"
 			break
 			;;
 		N*|n*)
-			echoerr "Not asking DotBot to clean."
+			echoerr "Not asking Dotbot to clean."
 			break
 			;;
 		*)
@@ -212,7 +212,7 @@ do
 	fi
 	if [ -f $fullname ] || [ -d $fullname ]; then
 		while true; do
-			read -p "I found ${item}, do you want to DotBot it? (Y/n) " answer
+			read -p "I found ${item}, do you want to Dotbot it? (Y/n) " answer
 			if [ -z $answer ]; then
 				answer='y'
 			fi
@@ -220,11 +220,11 @@ do
 				Y*|y*)
 					linksection[$i]=$item;
 					i=$i+1
-					echoerr "DotBotted!"
+					echoerr "Dotbotted!"
 					break
 					;;
 				N*|n*)
-					echoerr "Not added to DotBot."
+					echoerr "Not added to Dotbot."
 					break
 					;;
 				*)
@@ -331,7 +331,7 @@ if (( $dumpconf )); then
 	echo -e "$dotlink"
 	echoerr
 fi
-echoerr "The below are the actions that will be taken to setup DotBot."
+echoerr "The below are the actions that will be taken to setup Dotbot."
 if (( $testmode )); then
 	echoerr "Just kidding. They won't be."
 fi
