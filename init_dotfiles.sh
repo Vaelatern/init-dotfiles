@@ -1,11 +1,67 @@
 #!/usr/bin/env bash
-echoerr() { echo "$@" >&2; }
+
+# Colors as per: http://www.tldp.org/LDP/abs/html/colorizing.html
+
+echoerrcolor() {
+	if (( $colors )); then
+		case $1 in
+			none)
+				str="\e[0;37m"
+				;;
+			green)
+				str="\e[0;32m"
+				;;
+			red)
+				str="\e[0;31m"
+				;;
+			blue)
+				str="\e[1;34m"
+				;;
+			darkcyan)
+				str="\e[0;36m"
+				;;
+			darkgreen)
+				str="\e[1;32m"
+				;;
+			darkred)
+				str="\e[1;31m"
+				;;
+			magenta)
+				str="\e[0;35m"
+				;;
+			darkmagenta)
+				str="\e[1;35m"
+				;;
+
+		esac
+		echo -ne $str >&2;
+	fi
+}
+
+echoerrnocolor() {
+	if (( $colors )); then
+		echo -ne "\e[0m" >&2;
+	fi
+}
+
+echoerr() { 
+	if [ $# -gt 1 ]; then
+		color=$1
+		shift
+		echoerrcolor $color
+	fi
+	echo "$@" >&2;
+	if [ $color ]; then
+		echoerrnocolor
+	fi
+}
+
 printferr() { printf "$@" >&2; }
 
 $(which git >& /dev/null)
 
 if [ $? -eq 1 ]; then
-	echoerr "Git not found! Confirm it is indeed installed and reachable."
+	echoerr red "Git not found! Confirm it is indeed installed and reachable."
 	exit;
 fi
 
@@ -66,43 +122,52 @@ testmode=0;
 verboseconf=0;
 dumpconf=0;
 preview=1;
+colors=1;
 
 while [ $# -ne 0 ]; do
 	case "$1" in
 		test)
 			testmode=1;
-			echoerr "Test mode enabled."
+			echoerr darkcyan "Test mode enabled."
 			;;
 		no-test)
 			testmode=0;
-			echoerr "Test mode disabled."
+			echoerr darkcyan "Test mode disabled."
 			;;
 		verbose-config)
 			verboseconf=1;
-			echoerr "Verbose configuration file active."
+			echoerr darkcyan "Verbose configuration file active."
 			;;
 		no-verbose-config)
 			verboseconf=0;
-			echoerr "Concise configuration file active."
+			echoerr darkcyan "Concise configuration file active."
 			;;
 		dump-config)
 			dumpconf=1;
-			echoerr "Will dump config to stdout."
+			echoerr darkcyan "Will dump config to stdout."
 			;;
 		no-dump-config)
 			dumpconf=0;
-			echoerr "Will not dump config to stdout."
+			echoerr darkcyan "Will not dump config to stdout."
 			;;
 		preview)
 			preview=1;
-			echoerr "Will show commands to be executed."
+			echoerr darkcyan "Will show commands to be executed."
 			;;
 		no-preview)
 			preview=0;
-			echoerr "Will not show commands to be executed."
+			echoerr darkcyan "Will not show commands to be executed."
+			;;
+		colors)
+			colors=1;
+			echoerr darkcyan "Will print with colors."
+			;;
+		no-colors)
+			colors=0;
+			echoerr darkcyan "No color."
 			;;
 		*)
-			echoerr "Unfamiliar configuration option"
+			echoerr red "Unfamiliar configuration option"
 	esac
 	shift
 done
@@ -140,10 +205,10 @@ dotlink=''
 dotshell=''
 installerrun=1;
 
-echoerr "Welcome to the configuration generator for Dotbot"
-echoerr "Please be aware that if you have a complicated setup, you may need more customization than this script offers."
+echoerr blue "Welcome to the configuration generator for Dotbot"
+echoerr blue "Please be aware that if you have a complicated setup, you may need more customization than this script offers."
 echoerr;
-echoerr "At any time, press ^C to quit. No changes will be made until you confirm."
+echoerr blue "At any time, press ^C to quit. No changes will be made until you confirm."
 echoerr;
 
 appendshell start
@@ -152,9 +217,9 @@ prefix="~/.dotfiles"
 prefixfull="${prefix/\~/${HOME}}"
 
 if ! [ -d $prefixfull ]; then
-	echoerr "${prefix} is not in use."
+	echoerr darkcyan "${prefix} is not in use."
 else
-	echoerr "${prefix} exists and may have another purpose than ours."
+	echoerr darkcyan "${prefix} exists and may have another purpose than ours."
 fi
 
 
@@ -163,8 +228,8 @@ while true; do
 	if [ -z $answer ]; then
 		break
 	else
-		echoerr "FEATURE NOT YET SUPPORTED."
-		echoerr "Sorry for misleading you."
+		echoerr red "FEATURE NOT YET SUPPORTED."
+		echoerr red "Sorry for misleading you."
 		echoerr;
 	fi
 done
@@ -179,18 +244,18 @@ while true; do
 	fi
 	case "$answer" in
 		Y*|y*)
-			echoerr "Will do."
+			echoerr green "Will do."
 			appendshell gitaddsub
 			appendshell gitinstallinstall
 			break
 			;;
 		N*|n*)
-			echoerr "Okay, I shall not. You will need to manually set up your install script."
+			echoerr darkgreen "Okay, I shall not. You will need to manually set up your install script."
 			installerrun=0;
 			break
 			;;
 		*)
-			echoerr "Answer not understood: ${answer}"
+			echoerr red "Answer not understood: ${answer}"
 			;;
 	esac
 done
@@ -202,16 +267,16 @@ while true; do
 	fi
 	case "$answer" in
 		Y*|y*)
-			echoerr "I will ask Dotbot to clean."
+			echoerr green "I will ask Dotbot to clean."
 			dotclean="- clean: ['~']"
 			break
 			;;
 		N*|n*)
-			echoerr "Not asking Dotbot to clean."
+			echoerr darkgreen "Not asking Dotbot to clean."
 			break
 			;;
 		*)
-			echoerr "Answer not understood: ${answer}"
+			echoerr red "Answer not understood: ${answer}"
 			;;
 	esac
 done
@@ -220,7 +285,6 @@ done
 declare -a linksection;
 declare -i i;
 
-echoerr "Going to iterate items"
 for item in ${paths[*]}
 do
 	fullname="${item/\~/$HOME}"
@@ -237,15 +301,15 @@ do
 				Y*|y*)
 					linksection[$i]=$item;
 					i=$i+1
-					echoerr "Dotbotted!"
+					echoerr green "Dotbotted!"
 					break
 					;;
 				N*|n*)
-					echoerr "Not added to Dotbot."
+					echoerr darkgreen "Not added to Dotbot."
 					break
 					;;
 				*)
-					echoerr "Answer not understood: ${answer}"
+					echoerr red "Answer not understood: ${answer}"
 			esac
 		done
 	fi
@@ -305,8 +369,8 @@ if (( $installerrun )); then
 	$(git config user.name >& /dev/null && git config user.email >& /dev/null)
 
 	if [ $? -ne 0 ]; then
-		echoerr "Please note you do not have a name or email set for git."
-		echoerr "I shall not be able to commit unless you set the missing variables."
+		echoerr darkred "Please note you do not have a name or email set for git."
+		echoerr darkred "I shall not be able to commit unless you set the missing variables."
 		while [ 1 ]; do
 			read -p "Do you want to set them? (Y/n) " answer
 			if [ -z $answer ]; then
@@ -318,13 +382,13 @@ if (( $installerrun )); then
 					break
 					;;
 				N*|n*)
-					echoerr "Okay, I shall not."
+					echoerr darkgreen "Okay, I shall not."
 					getgitinfo=0;
 					installerrun=0;
 					break
 					;;
 				*)
-					echoerr "Answer not understood: ${answer}"
+					echoerr red "Answer not understood: ${answer}"
 					;;
 			esac
 		done
@@ -335,17 +399,17 @@ if (( $installerrun )); then
 			fi
 			case "$answer" in
 				Y*|y*)
-					echoerr "Adding --global to the set commands."
+					echoerr green "Adding --global to the set commands."
 					gitinfoglobal=1
 					break
 					;;
 				N*|n*)
-					echoerr "Okay, I shall make them local."
+					echoerr green "Okay, I shall make them local."
 					gitinfoglobal=0;
 					break
 					;;
 				*)
-					echoerr "Answer not understood: ${answer}"
+					echoerr red "Answer not understood: ${answer}"
 					;;
 			esac
 		done
@@ -385,17 +449,17 @@ while (( $installerrun )); do
 	fi
 	case "$answer" in
 		Y*|y*)
-			echoerr "Will do."
+			echoerr green "Will do."
 			appendshell runinstaller
 			break
 			;;
 		N*|n*)
-			echoerr "Okay, I shall not. You will need to take care of that yourself."
+			echoerr darkgreen "Okay, I shall not. You will need to take care of that yourself."
 			installerrun=0;
 			break
 			;;
 		*)
-			echoerr "Answer not understood: ${answer}"
+			echoerr red "Answer not understood: ${answer}"
 			;;
 	esac
 done
@@ -407,16 +471,16 @@ while (( $installerrun )); do
 	fi
 	case "$answer" in
 		Y*|y*)
-			echoerr "Will do."
+			echoerr green "Will do."
 			appendshell gitinitialcommit
 			break
 			;;
 		N*|n*)
-			echoerr "Okay, I shall not. You will need to take care of that yourself."
+			echoerr darkgreen "Okay, I shall not. You will need to take care of that yourself."
 			break
 			;;
 		*)
-			echoerr "Answer not understood: ${answer}"
+			echoerr red "Answer not understood: ${answer}"
 			;;
 	esac
 done
@@ -426,9 +490,9 @@ if (( $dumpconf )); then
 	echo -e "$dotlink"
 	echoerr
 fi
-echoerr "The below are the actions that will be taken to setup Dotbot."
+echoerr magenta "The below are the actions that will be taken to setup Dotbot."
 if (( $testmode )); then
-	echoerr "Just kidding. They won't be."
+	echoerr darkmagenta "Just kidding. They won't be."
 fi
 
 if (( $preview )); then
@@ -438,7 +502,9 @@ else
 	warningmessage=''
 fi
 
+echoerrcolor darkred
 read -p "${warningmessage}This is your last chance to press ^C before actions are taken that should not be interrupted. "
+echoerrnocolor
 
 if ! (( $testmode )); then
 	eval $setupshell
