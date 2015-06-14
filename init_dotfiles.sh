@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Colors as per: http://www.tldp.org/LDP/abs/html/colorizing.html
 
