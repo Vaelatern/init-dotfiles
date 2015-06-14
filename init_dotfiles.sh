@@ -122,7 +122,7 @@ testmode=0;
 verboseconf=0;
 dumpconf=0;
 preview=1;
-colors=1;
+colors=0;
 
 while [ $# -ne 0 ]; do
 	case "$1" in

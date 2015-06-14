@@ -36,6 +36,8 @@ Usage
   There won't be newlines between them, but you can see what they are. Default:
   Yes.
 
+- `colors` - Colorize output. Default: No.
+
 Every command line option can have `no-` prepended to turn off the option.
 
 For example:
