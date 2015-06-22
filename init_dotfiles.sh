@@ -227,7 +227,7 @@ fi
 
 while true; do
 	read -p "Where do you want your dotfiles repository to be? ($prefix) " answer
-	if [ -z $answer ]; then
+	if [ -z "$answer" ]; then
 		break
 	else
 		echoerr red "FEATURE NOT YET SUPPORTED."
@@ -241,7 +241,7 @@ appendshell gitinit
 
 while true; do
 	read -p "Shall we add Dotbot as a submodule (a good idea)? (Y/n) " answer
-	if [ -z $answer ]; then
+	if [ -z "$answer" ]; then
 		answer='y'
 	fi
 	case "$answer" in
@@ -264,7 +264,7 @@ done
 
 while true; do
 	read -p "Do you want Dotbot to clean ~/ of broken links added by Dotbot? (recommended) (Y/n) " answer
-	if [ -z $answer ]; then
+	if [ -z "$answer" ]; then
 		answer='y'
 	fi
 	case "$answer" in
@@ -296,7 +296,7 @@ do
 	if [ -f $fullname ] || [ -d $fullname ]; then
 		while true; do
 			read -p "I found ${item}, do you want to Dotbot it? (Y/n) " answer
-			if [ -z $answer ]; then
+			if [ -z "$answer" ]; then
 				answer='y'
 			fi
 			case "$answer" in
@@ -375,7 +375,7 @@ if (( $installerrun )); then
 		echoerr darkred "I shall not be able to commit unless you set the missing variables."
 		while [ 1 ]; do
 			read -p "Do you want to set them? (Y/n) " answer
-			if [ -z $answer ]; then
+			if [ -z "$answer" ]; then
 				answer='y'
 			fi
 			case "$answer" in
@@ -396,7 +396,7 @@ if (( $installerrun )); then
 		done
 		while [ 1 ]; do
 			read -p "Do you want these settings to be global? (Y/n) " answer
-			if [ -z $answer ]; then
+			if [ -z "$answer" ]; then
 				answer='y'
 			fi
 			case "$answer" in
@@ -431,22 +431,22 @@ if (( $getgitinfo )); then
 		gitemail='$(git config user.email)'
 	fi
 	read -p "What do you want for your git name? [${gitname}]" answer
-	if [ -z $answer ]; then
-		answer=$gitname
+	if [ -z "$answer" ]; then
+		answer="$gitname"
 	fi
-	gitname=$answer
+	gitname="$answer"
 	read -p "What do you want for your git email? [${gitemail}]" answer
-	if [ -z $answer ]; then
-		answer=$gitemail
+	if [ -z "$answer" ]; then
+		answer="$gitemail"
 	fi
-	gitemail=$answer
+	gitemail="$answer"
 	appendshell gitsetname "$gitname" $gitinfoglobal
 	appendshell gitsetemail "$gitemail" $gitinfoglobal
 fi
 
 while (( $installerrun )); do
 	read -p "Shall I run the installer? (Necessary to git commit) (Y/n) " answer
-	if [ -z $answer ]; then
+	if [ -z "$answer" ]; then
 		answer='y'
 	fi
 	case "$answer" in
@@ -468,7 +468,7 @@ done
 
 while (( $installerrun )); do
 	read -p "Shall I make the initial commit? (Y/n) " answer
-	if [ -z $answer ]; then
+	if [ -z "$answer" ]; then
 		answer='y'
 	fi
 	case "$answer" in
