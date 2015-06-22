@@ -100,7 +100,7 @@ appendshell() {
 			else
 				global=' '
 			fi
-			add='git config'$global'user.name "'$2'"'
+			add='git config'$global'user.name "'$2'";'
 			;;
 		gitsetemail)
 			if (( $3 )); then
@@ -108,7 +108,7 @@ appendshell() {
 			else
 				global=' '
 			fi
-			add='git config'$global'user.email "'$2'"'
+			add='git config'$global'user.email "'$2'";'
 			;;
 		gitinitialcommit)
 			add='git add -A; git commit -m "Initial commit";'
