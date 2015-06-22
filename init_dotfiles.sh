@@ -422,13 +422,13 @@ if (( $getgitinfo )); then
 	if [ $? -ne 0 ]; then
 		gitname="Donald Knuth"
 	else
-		gitname='$(git config user.name)'
+		gitname="$(git config user.name)"
 	fi
 	$(git config user.email >& /dev/null)
 	if [ $? -ne 0 ]; then
 		gitemail="Don.Knuth@example.com"
 	else
-		gitemail='$(git config user.email)'
+		gitemail="$(git config user.email)"
 	fi
 	read -p "What do you want for your git name? [${gitname}]" answer
 	if [ -z "$answer" ]; then
