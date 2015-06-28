@@ -324,8 +324,8 @@ hspace='\x20\x20\x20\x20'
 for item in ${linksection[*]}
 do
 	fullname="${item/\~/$HOME}"
-	firstdot=`expr index "$item" .`
-	firstslash=`expr index "$item" /`
+	firstdot=`echo "$item" | sed -n "s/[.].*//p" | wc -c`
+	firstslash=`echo "$item" | sed -n "s/[/].*//p" | wc -c`
 	if [ -d $fullname ]; then
 		itempath=$item'/'
 	else
@@ -336,7 +336,7 @@ do
 	else
 		itempath=${itempath:$firstslash};
 	fi
-	nextslash=`expr index "$itempath" /`
+	nextslash=`echo "$itempath" | sed -n "s/[/].*//p" | wc -c`
 	if [[ $nextslash -gt 0 ]]; then
 		entryisdir='true';
 	else
