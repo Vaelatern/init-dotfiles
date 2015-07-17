@@ -199,6 +199,8 @@ paths=('~/.profile'
 	'~/.config/vimprobable'
 	'~/.config/redshift'
 	'~/.config/openbox'
+	'~/.config/obmenu-generator'
+	'~/.config/dmenu'
 	'~/.config/tint2')
 
 setupshell=''
