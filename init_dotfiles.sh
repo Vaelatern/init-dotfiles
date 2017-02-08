@@ -196,13 +196,16 @@ paths=('~/.profile'
 	'~/.i3status.conf'
 	'~/.config/awesome'
 	'~/.config/i3'
+	'~/.config/i3blocks'
 	'~/.config/pianobar'
 	'~/.config/vimprobable'
 	'~/.config/redshift'
 	'~/.config/openbox'
 	'~/.config/obmenu-generator'
 	'~/.config/dmenu'
-	'~/.config/tint2')
+	'~/.config/tint2'
+	'~/.config/nvim/init.vim'
+	'~/.config/termite/config')
 
 setupshell=''
 dotclean=''
