@@ -79,6 +79,9 @@ appendshell() {
 		gitaddsub)
 			add='git submodule add https://github.com/anishathalye/dotbot;'
 			;;
+		gitignoredirty)
+			add='git config -f .gitmodules submodule.dotbot.ignore dirty;'
+			;;
 		gitinstallinstall)
 			add='cp dotbot/tools/git-submodule/install .;'
 			;;
@@ -251,6 +254,7 @@ while true; do
 		Y*|y*)
 			echoerr green "Will do."
 			appendshell gitaddsub
+			appendshell gitignoredirty
 			appendshell gitinstallinstall
 			break
 			;;
